@@ -106,14 +106,14 @@ abstract contract ERC4907A is ERC721A, IERC4907A {
     function _beforeTokenTransfers(
         address from,
         address to,
-        uint256 startTokenId,
-        uint256 quantity
+        uint256 tokenId,
+        uint256 batchSize
     ) internal virtual override {
-        super._beforeTokenTransfers(from, to, startTokenId, quantity);
+        super._beforeTokenTransfers(from, to, tokenId, batchSize);
 
-        if (from != to && _explicitUserOf(startTokenId) != address(0)) {
-            _packedUserInfo[startTokenId] = 0;
-            emit UpdateUser(startTokenId, address(0), 0);
+        if (from != to && _explicitUserOf(tokenId) != address(0)) {
+            _packedUserInfo[tokenId] = 0;
+            emit UpdateUser(tokenId, address(0), 0);
         }
     }
 }
