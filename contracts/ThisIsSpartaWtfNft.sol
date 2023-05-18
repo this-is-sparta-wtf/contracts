@@ -7,7 +7,6 @@ import "@openzeppelin/contracts/token/common/ERC2981.sol";
 import "operator-filter-registry/src/DefaultOperatorFilterer.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./utils/StartTokenIdHelper.sol";
 import "./utils/ERC4907A.sol";
 import "./utils/Recoverable.sol";
 
@@ -19,7 +18,6 @@ interface ITraits {
 
 contract ThisIsSpartaWtfNft is
     ERC721A,
-    StartTokenIdHelper,
     ERC721AQueryable,
     ERC4907A,
     ERC2981,
@@ -58,7 +56,7 @@ contract ThisIsSpartaWtfNft is
     constructor(
         address royaltyReceiver,
         uint96 royaltyNumerator
-    ) ERC721A(_name, _symbol) StartTokenIdHelper(1) {
+    ) ERC721A(_name, _symbol) {
         _setDefaultRoyalty(royaltyReceiver, royaltyNumerator);
     }
 
@@ -85,6 +83,10 @@ contract ThisIsSpartaWtfNft is
         }
         _transferEth(address(this).balance, fund);
         _safeMint(_msgSender(), quantity);
+    }
+
+    function startTokenId() external pure returns (uint256) {
+        return _startTokenId();
     }
 
     function totalFreeMinted() external view returns (uint256) {
@@ -263,17 +265,17 @@ contract ThisIsSpartaWtfNft is
     }
 
     // Overrides
-    function _startTokenId() internal view override returns (uint256) {
-        return startTokenId();
+    function _startTokenId() internal pure override returns (uint256) {
+        return 1;
     }
 
     function _beforeTokenTransfers(
         address from,
         address to,
-        uint256 startTokenId,
-        uint256 quantity
+        uint256 tokenId,
+        uint256 batchSize
     ) internal override(ERC721A, ERC4907A) {
-        super._beforeTokenTransfers(from, to, startTokenId, quantity);
+        super._beforeTokenTransfers(from, to, tokenId, batchSize);
     }
 
     function setApprovalForAll(
