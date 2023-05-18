@@ -29,7 +29,7 @@ contract ThisIsSpartaWtfNft is
     // Constants
     uint256 private constant _MAX_SUPPLY = 300_000;
     uint256 private constant _FREE_MINT_LIMIT = 10_000;
-    uint256 private constant _MINT_LIMIT = 100;
+    uint256 private constant _MINT_LIMIT = 1_000;
 
     // Metadata
     string private constant _name = "This is $SPARTA!";
