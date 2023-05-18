@@ -1,0 +1,49 @@
+{
+  "name": "@this-is-sparta-wtf/contracts",
+  "version": "1.0.0",
+  "description": "Smart Contracts",
+  "license": "MIT",
+  "author": {
+    "name": "This is $SPARTA!",
+    "email": "wtf@this-is-sparta.wtf",
+    "url": "https://this-is-sparta.wtf/"
+  },
+  "scripts": {
+    "clean": "rimraf ./build/ && mkdirp ./build/ && rimraf ./flatten/ && mkdirp ./flatten/",
+    "precompile": "yarn clean",
+    "compile": "truffle compile",
+    "postcompile": "yarn run flatten",
+    "predeploy": "yarn run compile",
+    "deploy": "truffle migrations --network",
+    "verify": "truffle run verify --network",
+    "test": "truffle test",
+    "flatten": "waffle flatten"
+  },
+  "homepage": "https://github.com/this-is-sparta-wtf/contracts#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/this-is-sparta-wtf/contracts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/this-is-sparta-wtf/contracts/issues",
+    "email": "wtf@this-is-sparta.wtf"
+  },
+  "files": [
+    "contracts",
+    "build"
+  ],
+  "dependencies": {
+    "@openzeppelin/contracts": "4.8.3",
+    "erc721a": "4.2.3",
+    "operator-filter-registry": "1.4.1"
+  },
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "^2.1.11",
+    "dotenv": "^16.0.3",
+    "ethereum-waffle": "^4.0.10",
+    "mkdirp": "^3.0.1",
+    "rimraf": "^5.0.0",
+    "truffle": "^5.9.0",
+    "truffle-plugin-verify": "^0.6.3"
+  }
+}
