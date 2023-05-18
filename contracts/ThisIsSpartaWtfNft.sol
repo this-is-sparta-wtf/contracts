@@ -36,7 +36,7 @@ contract ThisIsSpartaWtfNft is
     // Metadata
     string private constant _name = "This is $SPARTA!";
     string private constant _symbol = "SPARTAN";
-    bool private _revealed = true;
+    bool private _revealed;
     string private _notRevealedURI;
     string private _contractURI;
     string private _baseUri;
@@ -83,8 +83,8 @@ contract ThisIsSpartaWtfNft is
         if (msg.value / quantity != 0.01 ether) {
             revert WrongValue();
         }
-        _safeMint(_msgSender(), quantity);
         _transferEth(address(this).balance, fund);
+        _safeMint(_msgSender(), quantity);
     }
 
     function totalFreeMinted() external view returns (uint256) {
@@ -265,11 +265,6 @@ contract ThisIsSpartaWtfNft is
     // Overrides
     function _startTokenId() internal view override returns (uint256) {
         return startTokenId();
-    }
-
-    function _burn(uint256 tokenId, bool approvalCheck) internal override {
-        super._burn(tokenId, approvalCheck);
-        _resetTokenRoyalty(tokenId);
     }
 
     function _beforeTokenTransfers(
